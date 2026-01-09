@@ -11,7 +11,6 @@ public interface RawMaterialRepository extends JpaRepository<RawMaterial, Long> 
     @Query("""
        SELECT r FROM RawMaterial r
        WHERE r.quantity <= r.minStockLevel
-       AND r.active = true
        """)
     List<RawMaterial> findLowStockMaterials();
 

@@ -31,7 +31,5 @@ public class StockInwardDto {
     @Positive
     private Double unitPrice;
 
-    private Double totalPrice;
 
-    private LocalDateTime purchaseDate;
 }

@@ -48,11 +48,13 @@ public class OrderService {
         Order order = new Order();
         order.setOrderDate(LocalDateTime.now());
         order.setStatus("CREATED");
+        order.setTotalAmount(0.0);
         order = orderRepository.save(order);
+
 
         double totalAmount = 0.0;
 
-        for (OrderItemRequestDto itemReq : request.getItems()) {
+        for (OrderItemRequestDto itemReq : request.getItems()) { // one menu item per iteration
 
             MenuItem menuItem = menuItemRepository.findById(itemReq.getMenuItemId())
                     .orElseThrow(() -> new ResourceNotFoundException("Menu item not found"));
@@ -64,17 +66,19 @@ public class OrderService {
             List<MenuItemRawMaterial> recipe =
                     menuItemRawMaterialRepository.findByMenuItemId(menuItem.getId());
 
+            if (recipe.isEmpty()) {
+                throw new IllegalStateException("Recipe not defined for menu item");
+            }
+
             // Stock validation
             for (MenuItemRawMaterial rm : recipe) {
-                double requiredQty =
-                        rm.getQuantityRequired() * itemReq.getQuantity();
-
+                double requiredQty = rm.getQuantityRequired() * itemReq.getQuantity();
                 if (rm.getRawMaterial().getQuantity() < requiredQty) {
                     throw new IllegalStateException("Insufficient stock");
                 }
             }
 
-            // Create OrderItem
+
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
             orderItem.setMenuItem(menuItem);
@@ -82,12 +86,11 @@ public class OrderService {
             orderItem.setPrice(menuItem.getPrice());
             orderItemRepository.save(orderItem);
 
-            // Deduct stock + record usage
+
             for (MenuItemRawMaterial rm : recipe) {
 
                 RawMaterial rawMaterial = rm.getRawMaterial();
-                double usedQty =
-                        rm.getQuantityRequired() * itemReq.getQuantity();
+                double usedQty = rm.getQuantityRequired() * itemReq.getQuantity();
 
                 rawMaterial.setQuantity(rawMaterial.getQuantity() - usedQty);
                 rawMaterialRepository.save(rawMaterial);
@@ -104,11 +107,13 @@ public class OrderService {
             totalAmount += menuItem.getPrice() * itemReq.getQuantity();
         }
 
+
         order.setTotalAmount(totalAmount);
         orderRepository.save(order);
 
         return modelMapper.map(order, OrderDto.class);
     }
+
 
 
     public OrderDto getOrderById(Long orderId) {

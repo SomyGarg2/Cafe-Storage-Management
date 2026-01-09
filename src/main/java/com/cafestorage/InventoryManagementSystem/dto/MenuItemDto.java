@@ -23,5 +23,5 @@ public class MenuItemDto {
     @Positive
     private Double price;
 
-    private Boolean available;
+
 }

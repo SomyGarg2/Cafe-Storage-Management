@@ -38,22 +38,4 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<?> handleGenericException(
-//            Exception ex,
-//            HttpServletRequest request
-//    ) {
-//
-//        String path = request.getRequestURI();
-//
-//        // ✅ Allow Swagger/OpenAPI to work properly
-//        if (path.startsWith("/v3/api-docs") || path.startsWith("/swagger-ui")) {
-//            throw new RuntimeException(ex);
-//        }
-//
-//        return buildResponse(
-//                HttpStatus.INTERNAL_SERVER_ERROR,
-//                "Something went wrong. Please try again."
-//        );
-//    }
 }

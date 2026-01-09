@@ -21,6 +21,7 @@ public class SupplierService {
 
     public SupplierDto addSupplier(SupplierDto supplierDto){
         Supplier supplier = modelMapper.map(supplierDto, Supplier.class);
+        supplier.setStatus(true);
         Supplier savedSupplier = supplierRepository.save(supplier);
         return modelMapper.map(savedSupplier, SupplierDto.class);
     }
@@ -45,6 +46,7 @@ public class SupplierService {
         existingSupplier.setName(supplierDto.getName());
         existingSupplier.setContact(supplierDto.getContact());
         existingSupplier.setAddress(supplierDto.getAddress());
+        existingSupplier.setStatus(supplierDto.getStatus());
 
         Supplier updatedSupplier = supplierRepository.save(existingSupplier);
         return modelMapper.map(updatedSupplier, SupplierDto.class);
@@ -55,6 +57,7 @@ public class SupplierService {
                 .orElseThrow(() -> new ResourceNotFoundException("Supplier not found"));
 
         supplier.setStatus(false);
+
         supplierRepository.save(supplier);
     }
 

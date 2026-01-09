@@ -33,6 +33,10 @@ public class RawMaterialService {
         Supplier supplier = supplierRepository.findById(rawMaterialDto.getSupplierId())
                 .orElseThrow(() -> new ResourceNotFoundException("Supplier not found"));
 
+        if (!supplier.isStatus()) {
+            throw new IllegalStateException("Supplier is inactive. Cannot add raw material.");
+        }
+
         RawMaterial rawMaterial = modelMapper.map(rawMaterialDto, RawMaterial.class);
 
         rawMaterial.setSupplier(supplier);

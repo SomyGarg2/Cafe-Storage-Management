@@ -12,8 +12,11 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class StockInwardService {
+
     private final StockInwardRepository stockInwardRepository;
     private final RawMaterialRepository rawMaterialRepository;
     private final SupplierRepository supplierRepository;
@@ -30,31 +33,38 @@ public class StockInwardService {
     }
 
     @Transactional
-    public StockInwardDto recordStockInward(StockInwardDto stockInwardDto){
-        RawMaterial rawMaterial = rawMaterialRepository.findById(stockInwardDto.getRawMaterialId())
+    public StockInwardDto recordStockInward(StockInwardDto dto) {
+
+        RawMaterial rawMaterial = rawMaterialRepository.findById(dto.getRawMaterialId())
                 .orElseThrow(() -> new ResourceNotFoundException("Raw material not found"));
 
-        Supplier supplier = supplierRepository.findById(stockInwardDto.getSupplierId())
+        Supplier supplier = supplierRepository.findById(dto.getSupplierId())
                 .orElseThrow(() -> new ResourceNotFoundException("Supplier not found"));
+
+        if (dto.getUnitPrice() == null) {
+            throw new IllegalArgumentException("Unit price is required");
+        }
 
         StockInward stockInward = new StockInward();
         stockInward.setRawMaterial(rawMaterial);
         stockInward.setSupplier(supplier);
-        stockInward.setQuantity(stockInwardDto.getQuantity());
-        stockInward.setUnitPrice(stockInwardDto.getUnitPrice());
+        stockInward.setQuantity(dto.getQuantity());
+        stockInward.setUnitPrice(dto.getUnitPrice());
+        stockInward.setPurchaseDate(LocalDateTime.now());
 
-        stockInward.setTotalPrice(stockInward.getQuantity()*stockInward.getUnitPrice());
+        double totalPrice = dto.getQuantity() * dto.getUnitPrice();
+        stockInward.setTotalPrice(totalPrice);
 
-        stockInwardRepository.save(stockInward);
-
-        // Automatically increase inventory
-        rawMaterial.setQuantity(
-                rawMaterial.getQuantity() + stockInwardDto.getQuantity()
-        );
+        // Increase inventory
+        rawMaterial.setQuantity(rawMaterial.getQuantity() + dto.getQuantity());
         rawMaterialRepository.save(rawMaterial);
 
-        return modelMapper.map(stockInward, StockInwardDto.class);
+        StockInward savedStockInward = stockInwardRepository.save(stockInward);
+
+        return modelMapper.map(savedStockInward, StockInwardDto.class);
     }
-
-
 }
+
+
+
+

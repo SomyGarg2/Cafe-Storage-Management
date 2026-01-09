@@ -29,8 +29,6 @@ public class RawMaterial {
     @Column(nullable = false)
     private Double minStockLevel;
 
-    @Column(nullable = false)
-    private Boolean active = true;
 
     @ManyToOne
     @JoinColumn(name = "supplier_id", nullable = false)

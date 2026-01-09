@@ -37,7 +37,7 @@ public class RawMaterialDto {
     @NotNull
     private Long supplierId;
 
-    private Boolean active;
+
 
 
 }
