@@ -77,7 +77,7 @@ public class MenuItemRawMaterialService {
         menuItemRawMaterialRepository.deleteById(id);
     }
 
-    public List<MenuItemRawMaterialDto> getRecipeByMenuItem(Long menuItemId) {
+    public List<MenuItemRawMaterialDto> getRecipeByMenuItem(Long menuItemId) { // get all raw materials for a menu item
 
         return menuItemRawMaterialRepository.findByMenuItemId(menuItemId)
                 .stream()

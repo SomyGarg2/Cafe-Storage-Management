@@ -22,4 +22,8 @@ public class StockInwardController {
         return stockInwardService.recordStockInward(stockInwardDto);
     }
 
+
+
+
+
 }

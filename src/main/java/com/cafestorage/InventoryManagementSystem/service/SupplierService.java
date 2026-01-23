@@ -21,7 +21,7 @@ public class SupplierService {
 
     public SupplierDto addSupplier(SupplierDto supplierDto){
         Supplier supplier = modelMapper.map(supplierDto, Supplier.class);
-        supplier.setStatus(true);
+        supplier.setStatus(supplierDto.getStatus());
         Supplier savedSupplier = supplierRepository.save(supplier);
         return modelMapper.map(savedSupplier, SupplierDto.class);
     }
