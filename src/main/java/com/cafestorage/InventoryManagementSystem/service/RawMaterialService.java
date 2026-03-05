@@ -6,24 +6,20 @@ import com.cafestorage.InventoryManagementSystem.entity.Supplier;
 import com.cafestorage.InventoryManagementSystem.exception.ResourceNotFoundException;
 import com.cafestorage.InventoryManagementSystem.repository.RawMaterialRepository;
 import com.cafestorage.InventoryManagementSystem.repository.SupplierRepository;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class RawMaterialService {
     private final RawMaterialRepository rawMaterialRepository;
     private final SupplierRepository supplierRepository;
     private final ModelMapper modelMapper;
 
-    public RawMaterialService(RawMaterialRepository rawMaterialRepository,
-                              SupplierRepository supplierRepository,
-                              ModelMapper modelMapper) {
-        this.rawMaterialRepository = rawMaterialRepository;
-        this.supplierRepository = supplierRepository;
-        this.modelMapper = modelMapper;
-    }
+
 
     public RawMaterialDto addRawMaterial(RawMaterialDto rawMaterialDto){
         if (rawMaterialRepository.existsByName(rawMaterialDto.getName())) {

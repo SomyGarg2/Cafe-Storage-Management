@@ -5,6 +5,8 @@ import com.cafestorage.InventoryManagementSystem.entity.*;
 import com.cafestorage.InventoryManagementSystem.exception.ResourceNotFoundException;
 import com.cafestorage.InventoryManagementSystem.repository.*;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,7 @@ import com.cafestorage.InventoryManagementSystem.dto.OrderItemRequestDto;
 
 
 @Service
-
+@AllArgsConstructor
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -25,22 +27,6 @@ public class OrderService {
     private final RawMaterialRepository rawMaterialRepository;
     private final StockOutwardRepository stockOutwardRepository;
     private final ModelMapper modelMapper;
-
-    public OrderService(OrderRepository orderRepository,
-                        OrderItemRepository orderItemRepository,
-                        MenuItemRepository menuItemRepository,
-                        MenuItemRawMaterialRepository menuItemRawMaterialRepository,
-                        RawMaterialRepository rawMaterialRepository,
-                        StockOutwardRepository stockOutwardRepository,
-                        ModelMapper modelMapper) {
-        this.orderRepository = orderRepository;
-        this.orderItemRepository = orderItemRepository;
-        this.menuItemRepository = menuItemRepository;
-        this.menuItemRawMaterialRepository = menuItemRawMaterialRepository;
-        this.rawMaterialRepository = rawMaterialRepository;
-        this.stockOutwardRepository = stockOutwardRepository;
-        this.modelMapper = modelMapper;
-    }
 
 
     @Transactional
@@ -146,6 +132,13 @@ public class OrderService {
 
         order.setStatus("CANCELLED");
         orderRepository.save(order);
+    }
+
+    public List<OrderDto> getAllOrders() {
+        return orderRepository.findAll()
+                .stream()
+                .map(order -> modelMapper.map(order, OrderDto.class))
+                .toList();
     }
 }
 

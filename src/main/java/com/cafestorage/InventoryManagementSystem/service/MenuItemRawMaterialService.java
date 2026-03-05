@@ -8,12 +8,15 @@ import com.cafestorage.InventoryManagementSystem.exception.ResourceNotFoundExcep
 import com.cafestorage.InventoryManagementSystem.repository.MenuItemRawMaterialRepository;
 import com.cafestorage.InventoryManagementSystem.repository.MenuItemRepository;
 import com.cafestorage.InventoryManagementSystem.repository.RawMaterialRepository;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
+
 public class MenuItemRawMaterialService {
 
     private final MenuItemRawMaterialRepository menuItemRawMaterialRepository;
@@ -21,15 +24,6 @@ public class MenuItemRawMaterialService {
     private final MenuItemRepository menuItemRepository;
     private final ModelMapper modelMapper;
 
-    public MenuItemRawMaterialService(MenuItemRawMaterialRepository menuItemRawMaterialRepository,
-                                      RawMaterialRepository rawMaterialRepository,
-                                      MenuItemRepository menuItemRepository,
-                                      ModelMapper modelMapper) {
-        this.menuItemRawMaterialRepository = menuItemRawMaterialRepository;
-        this.rawMaterialRepository = rawMaterialRepository;
-        this.menuItemRepository = menuItemRepository;
-        this.modelMapper = modelMapper;
-    }
 
 
     public MenuItemRawMaterialDto addRecipe(MenuItemRawMaterialDto dto){

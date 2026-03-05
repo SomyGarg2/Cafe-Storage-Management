@@ -2,17 +2,16 @@ package com.cafestorage.InventoryManagementSystem.controller;
 
 import com.cafestorage.InventoryManagementSystem.dto.SupplierDto;
 import com.cafestorage.InventoryManagementSystem.service.SupplierService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/suppliers")
+@AllArgsConstructor
 public class SupplierController {
     private final SupplierService supplierService;
-    public SupplierController(SupplierService supplierService) {
-        this.supplierService = supplierService;
-    }
 
     @PostMapping
     public SupplierDto addSupplier(@RequestBody SupplierDto supplierDto) {

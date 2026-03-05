@@ -2,17 +2,16 @@ package com.cafestorage.InventoryManagementSystem.controller;
 
 import com.cafestorage.InventoryManagementSystem.dto.MenuItemDto;
 import com.cafestorage.InventoryManagementSystem.service.MenuItemService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/menu-items")
+@AllArgsConstructor
 public class MenuItemController {
 
     private final MenuItemService menuItemService;
-    public MenuItemController(MenuItemService menuItemService) {
-        this.menuItemService = menuItemService;
-    }
 
     @PostMapping
     public MenuItemDto addItem(@RequestBody MenuItemDto menuItemDto) {

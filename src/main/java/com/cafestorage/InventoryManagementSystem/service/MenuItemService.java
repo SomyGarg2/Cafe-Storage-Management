@@ -4,18 +4,15 @@ import com.cafestorage.InventoryManagementSystem.dto.MenuItemDto;
 import com.cafestorage.InventoryManagementSystem.entity.MenuItem;
 import com.cafestorage.InventoryManagementSystem.exception.ResourceNotFoundException;
 import com.cafestorage.InventoryManagementSystem.repository.MenuItemRepository;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class MenuItemService {
     private final MenuItemRepository menuItemRepository;
     private final ModelMapper modelMapper;
-
-    public MenuItemService(MenuItemRepository menuItemRepository, ModelMapper modelMapper) {
-        this.menuItemRepository = menuItemRepository;
-        this.modelMapper = modelMapper;
-    }
 
 
     public MenuItemDto addItem(MenuItemDto menuItemDto){

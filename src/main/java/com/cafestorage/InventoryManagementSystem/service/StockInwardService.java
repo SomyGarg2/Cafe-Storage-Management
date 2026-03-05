@@ -9,12 +9,14 @@ import com.cafestorage.InventoryManagementSystem.repository.RawMaterialRepositor
 import com.cafestorage.InventoryManagementSystem.repository.StockInwardRepository;
 import com.cafestorage.InventoryManagementSystem.repository.SupplierRepository;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
+@AllArgsConstructor
 public class StockInwardService {
 
     private final StockInwardRepository stockInwardRepository;
@@ -22,15 +24,7 @@ public class StockInwardService {
     private final SupplierRepository supplierRepository;
     private final ModelMapper modelMapper;
 
-    public StockInwardService(StockInwardRepository stockInwardRepository,
-                              RawMaterialRepository rawMaterialRepository,
-                              SupplierRepository supplierRepository,
-                              ModelMapper modelMapper) {
-        this.stockInwardRepository = stockInwardRepository;
-        this.rawMaterialRepository = rawMaterialRepository;
-        this.supplierRepository = supplierRepository;
-        this.modelMapper = modelMapper;
-    }
+
 
     @Transactional
     public StockInwardDto recordStockInward(StockInwardDto dto) {

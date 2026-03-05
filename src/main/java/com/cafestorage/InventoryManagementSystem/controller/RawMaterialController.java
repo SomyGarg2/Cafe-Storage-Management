@@ -2,20 +2,17 @@ package com.cafestorage.InventoryManagementSystem.controller;
 
 import com.cafestorage.InventoryManagementSystem.dto.RawMaterialDto;
 import com.cafestorage.InventoryManagementSystem.service.RawMaterialService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/raw-materials")
-
+@AllArgsConstructor
 public class RawMaterialController {
 
     private final RawMaterialService rawMaterialService;
-    public RawMaterialController(RawMaterialService rawMaterialService) {
-        this.rawMaterialService = rawMaterialService;
-    }
-
 
 
 

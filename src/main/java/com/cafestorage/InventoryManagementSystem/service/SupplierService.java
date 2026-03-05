@@ -4,20 +4,18 @@ import com.cafestorage.InventoryManagementSystem.dto.SupplierDto;
 import com.cafestorage.InventoryManagementSystem.entity.Supplier;
 import com.cafestorage.InventoryManagementSystem.exception.ResourceNotFoundException;
 import com.cafestorage.InventoryManagementSystem.repository.SupplierRepository;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class SupplierService {
     private final SupplierRepository supplierRepository;
     private final ModelMapper modelMapper;
 
-    public SupplierService(SupplierRepository supplierRepository, ModelMapper modelMapper) {
-        this.supplierRepository = supplierRepository;
-        this.modelMapper = modelMapper;
-    }
 
     public SupplierDto addSupplier(SupplierDto supplierDto){
         Supplier supplier = modelMapper.map(supplierDto, Supplier.class);

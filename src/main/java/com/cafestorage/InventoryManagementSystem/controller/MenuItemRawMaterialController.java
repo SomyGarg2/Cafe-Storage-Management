@@ -2,19 +2,20 @@ package com.cafestorage.InventoryManagementSystem.controller;
 
 import com.cafestorage.InventoryManagementSystem.dto.MenuItemRawMaterialDto;
 import com.cafestorage.InventoryManagementSystem.service.MenuItemRawMaterialService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/menu-item-raw-materials")
+@AllArgsConstructor
+
 public class MenuItemRawMaterialController {
 
     private final MenuItemRawMaterialService menuItemRawMaterialService;
 
-    public MenuItemRawMaterialController(MenuItemRawMaterialService menuItemRawMaterialService) {
-        this.menuItemRawMaterialService = menuItemRawMaterialService;
-    }
+
 
     @PostMapping
     public MenuItemRawMaterialDto addRecipe(@RequestBody MenuItemRawMaterialDto dto) {
