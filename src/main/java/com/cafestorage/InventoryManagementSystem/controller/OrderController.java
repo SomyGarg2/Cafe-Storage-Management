@@ -39,4 +39,10 @@ public class OrderController {
     public void cancelOrder(@PathVariable Long id) {
         orderService.cancelOrder(id);
     }
+
+    @PutMapping("/{id}/complete")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void completeOrder(@PathVariable Long id) {
+        orderService.completeOrder(id);
+    }
 }

@@ -34,7 +34,7 @@ public class OrderService {
 
         Order order = new Order();
         order.setOrderDate(LocalDateTime.now());
-        order.setStatus("CREATED");
+        order.setStatus(OrderStatus.CREATED);
         order.setTotalAmount(0.0);
         order = orderRepository.save(order);
 
@@ -115,8 +115,12 @@ public class OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
 
-        if ("CANCELLED".equals(order.getStatus())) {
+        if (order.getStatus() == OrderStatus.CANCELLED) {
             throw new IllegalStateException("Order already cancelled");
+        }
+
+        if (order.getStatus() == OrderStatus.COMPLETED) {
+            throw new IllegalStateException("Cannot cancel a completed order");
         }
 
         List<StockOutward> stockOutwards =
@@ -130,7 +134,25 @@ public class OrderService {
             rawMaterialRepository.save(rawMaterial);
         }
 
-        order.setStatus("CANCELLED");
+        order.setStatus(OrderStatus.CANCELLED);
+        orderRepository.save(order);
+    }
+
+    @Transactional
+    public void completeOrder(Long orderId) {
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+
+        if (order.getStatus() == OrderStatus.CANCELLED) {
+            throw new IllegalStateException("Cannot complete a cancelled order");
+        }
+
+        if (order.getStatus() == OrderStatus.COMPLETED) {
+            throw new IllegalStateException("Order already completed");
+        }
+
+        order.setStatus(OrderStatus.COMPLETED);
         orderRepository.save(order);
     }
 
@@ -141,4 +163,3 @@ public class OrderService {
                 .toList();
     }
 }
-

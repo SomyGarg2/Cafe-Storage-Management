@@ -1,6 +1,7 @@
 package com.cafestorage.InventoryManagementSystem.dto;
 
 
+import com.cafestorage.InventoryManagementSystem.entity.OrderStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,6 @@ public class OrderDto {
 
 
     @NotNull
-    private String status;
+    private OrderStatus status;
 
 }

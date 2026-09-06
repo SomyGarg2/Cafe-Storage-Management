@@ -34,4 +34,7 @@ public class RawMaterial {
     @JoinColumn(name = "supplier_id", nullable = false)
     private Supplier supplier;
 
+    @Version
+    private Long version;
+
 }
