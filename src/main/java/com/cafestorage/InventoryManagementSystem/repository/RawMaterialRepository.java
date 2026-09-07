@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface RawMaterialRepository extends JpaRepository<RawMaterial, Long> {
     boolean existsByName(String name);
+    java.util.Optional<RawMaterial> findByName(String name);
     @Query("""
        SELECT r FROM RawMaterial r
        WHERE r.quantity <= r.minStockLevel

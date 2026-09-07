@@ -36,6 +36,7 @@ public class RawMaterialService {
         RawMaterial rawMaterial = modelMapper.map(rawMaterialDto, RawMaterial.class);
 
         rawMaterial.setSupplier(supplier);
+        rawMaterial.setQuantity(0.0);
         RawMaterial savedRawMaterial = rawMaterialRepository.save(rawMaterial);
         return modelMapper.map(savedRawMaterial, RawMaterialDto.class);
     }

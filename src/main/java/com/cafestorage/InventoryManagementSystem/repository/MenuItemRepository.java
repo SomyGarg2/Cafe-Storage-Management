@@ -4,4 +4,5 @@ import com.cafestorage.InventoryManagementSystem.entity.MenuItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
+    java.util.Optional<MenuItem> findByName(String name);
 }
