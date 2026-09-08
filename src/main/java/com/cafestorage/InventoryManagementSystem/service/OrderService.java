@@ -29,7 +29,6 @@ public class OrderService {
     private final ModelMapper modelMapper;
 
 
-    // OrderService.createOrder — validation only, no deduction, no StockOutward
     @Transactional
     public OrderDto createOrder(CreateOrderRequestDto request) {
         Order order = new Order();
@@ -41,8 +40,7 @@ public class OrderService {
         double totalAmount = 0.0;
 
         for (OrderItemRequestDto itemReq : request.getItems()) {
-            MenuItem menuItem = menuItemRepository.findById(itemReq.getMenuItemId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Menu item not found"));
+            MenuItem menuItem = menuItemRepository.resolve(itemReq.getMenuItemId(), itemReq.getMenuItemName());
 
             if (!menuItem.getAvailable()) {
                 throw new IllegalStateException("Menu item not available");

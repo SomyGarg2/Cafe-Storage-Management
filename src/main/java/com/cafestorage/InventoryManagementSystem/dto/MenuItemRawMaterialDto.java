@@ -15,13 +15,12 @@ import lombok.NoArgsConstructor;
 public class MenuItemRawMaterialDto {
     private Long id;
 
-    @NotNull
     private Long menuItemId;
+    private String menuItemName;
 
-    @NotNull
     private Long rawMaterialId;
+    private String rawMaterialName;
 
-    @NotNull
-    @Positive
+    @NotNull @Positive
     private Double quantityRequired;
 }

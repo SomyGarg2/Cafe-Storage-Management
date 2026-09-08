@@ -32,11 +32,8 @@ public class MenuItemRawMaterialService {
             throw new IllegalStateException("Raw material already added to menu item");
         }
 
-        MenuItem menuItem = menuItemRepository.findById(dto.getMenuItemId())
-                .orElseThrow(() -> new ResourceNotFoundException("Menu item not found"));
-
-        RawMaterial rawMaterial = rawMaterialRepository.findById(dto.getRawMaterialId())
-                .orElseThrow(() -> new ResourceNotFoundException("Raw material not found"));
+        MenuItem menuItem = menuItemRepository.resolve(dto.getMenuItemId(), dto.getMenuItemName());
+        RawMaterial rawMaterial = rawMaterialRepository.resolve(dto.getRawMaterialId(), dto.getRawMaterialName());
 
         MenuItemRawMaterial mapping = new MenuItemRawMaterial();
         mapping.setMenuItem(menuItem);
