@@ -26,8 +26,7 @@ public class RawMaterialDto {
     @NotBlank
     private String unit;
 
-    @NotNull
-    @Positive
+    // Read-only: always 0 on creation, changed only by stock inward / orders
     private Double quantity;
 
     @NotNull

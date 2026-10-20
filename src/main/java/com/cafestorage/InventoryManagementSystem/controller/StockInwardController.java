@@ -2,6 +2,7 @@ package com.cafestorage.InventoryManagementSystem.controller;
 
 import com.cafestorage.InventoryManagementSystem.dto.StockInwardDto;
 import com.cafestorage.InventoryManagementSystem.service.StockInwardService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,7 @@ public class StockInwardController {
     private final StockInwardService stockInwardService;
 
     @PostMapping
-    public StockInwardDto recordStockInward(@RequestBody StockInwardDto stockInwardDto) {
+    public StockInwardDto recordStockInward(@Valid @RequestBody StockInwardDto stockInwardDto) {
         return stockInwardService.recordStockInward(stockInwardDto);
     }
 

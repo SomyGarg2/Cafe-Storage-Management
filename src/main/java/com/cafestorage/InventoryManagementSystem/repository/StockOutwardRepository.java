@@ -19,7 +19,9 @@ public interface StockOutwardRepository extends JpaRepository<StockOutward, Long
             SUM(s.quantityUsed)
         )
         FROM StockOutward s
+        JOIN s.order o
         WHERE CAST(s.usedDate AS LocalDate) = :date
+        AND o.status <> com.cafestorage.InventoryManagementSystem.entity.OrderStatus.CANCELLED
         GROUP BY s.rawMaterial.name, s.rawMaterial.unit
         ORDER BY s.rawMaterial.name ASC
     """)

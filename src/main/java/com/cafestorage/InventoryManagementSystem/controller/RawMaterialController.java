@@ -2,6 +2,7 @@ package com.cafestorage.InventoryManagementSystem.controller;
 
 import com.cafestorage.InventoryManagementSystem.dto.RawMaterialDto;
 import com.cafestorage.InventoryManagementSystem.service.RawMaterialService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +19,12 @@ public class RawMaterialController {
 
 
     @PostMapping
-    public RawMaterialDto addRawMaterial(@RequestBody RawMaterialDto rawMaterialDto) {
+    public RawMaterialDto addRawMaterial(@Valid @RequestBody RawMaterialDto rawMaterialDto) {
         return rawMaterialService.addRawMaterial(rawMaterialDto);
     }
 
     @PutMapping(path = "/{id}")
-    public RawMaterialDto updateRawMaterial(@PathVariable Long id, @RequestBody RawMaterialDto rawMaterialDto) {
+    public RawMaterialDto updateRawMaterial(@PathVariable Long id, @Valid @RequestBody RawMaterialDto rawMaterialDto) {
         return rawMaterialService.updateRawMaterial(id, rawMaterialDto);
     }
 

@@ -2,6 +2,7 @@ package com.cafestorage.InventoryManagementSystem.controller;
 
 import com.cafestorage.InventoryManagementSystem.dto.MenuItemDto;
 import com.cafestorage.InventoryManagementSystem.service.MenuItemService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +15,12 @@ public class MenuItemController {
     private final MenuItemService menuItemService;
 
     @PostMapping
-    public MenuItemDto addItem(@RequestBody MenuItemDto menuItemDto) {
+    public MenuItemDto addItem(@Valid @RequestBody MenuItemDto menuItemDto) {
         return menuItemService.addItem(menuItemDto);
     }
 
     @PutMapping(path = "/{id}")
-    public MenuItemDto updateItem(@RequestBody MenuItemDto menuItemDto,@PathVariable Long id) {
+    public MenuItemDto updateItem(@Valid @RequestBody MenuItemDto menuItemDto,@PathVariable Long id) {
         return menuItemService.updateItem(menuItemDto, id);
     }
 

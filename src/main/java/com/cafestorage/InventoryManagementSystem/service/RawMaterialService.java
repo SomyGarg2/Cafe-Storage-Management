@@ -36,6 +36,8 @@ public class RawMaterialService {
         RawMaterial rawMaterial = modelMapper.map(rawMaterialDto, RawMaterial.class);
 
         rawMaterial.setSupplier(supplier);
+        // Stock starts at zero; it only increases through stock inward (so every unit is tracked)
+        rawMaterial.setQuantity(0.0);
         RawMaterial savedRawMaterial = rawMaterialRepository.save(rawMaterial);
         return modelMapper.map(savedRawMaterial, RawMaterialDto.class);
     }

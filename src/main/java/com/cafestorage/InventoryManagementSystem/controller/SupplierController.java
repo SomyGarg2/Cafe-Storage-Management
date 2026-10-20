@@ -2,6 +2,7 @@ package com.cafestorage.InventoryManagementSystem.controller;
 
 import com.cafestorage.InventoryManagementSystem.dto.SupplierDto;
 import com.cafestorage.InventoryManagementSystem.service.SupplierService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ public class SupplierController {
     private final SupplierService supplierService;
 
     @PostMapping
-    public SupplierDto addSupplier(@RequestBody SupplierDto supplierDto) {
+    public SupplierDto addSupplier(@Valid @RequestBody SupplierDto supplierDto) {
         return supplierService.addSupplier(supplierDto);
     }
 
@@ -29,7 +30,7 @@ public class SupplierController {
     }
 
     @PutMapping(path = "/{id}")
-    public SupplierDto updateSupplier(@PathVariable Long id, @RequestBody SupplierDto supplierDto){
+    public SupplierDto updateSupplier(@PathVariable Long id, @Valid @RequestBody SupplierDto supplierDto){
         return supplierService.updateSupplier(id, supplierDto);
     }
 

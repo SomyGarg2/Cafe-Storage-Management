@@ -3,6 +3,7 @@ package com.cafestorage.InventoryManagementSystem.controller;
 import com.cafestorage.InventoryManagementSystem.dto.CreateOrderRequestDto;
 import com.cafestorage.InventoryManagementSystem.dto.OrderDto;
 import com.cafestorage.InventoryManagementSystem.service.OrderService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class OrderController {
 
 
     @PostMapping
-    public OrderDto createOrder(@RequestBody CreateOrderRequestDto request) {
+    public OrderDto createOrder(@Valid @RequestBody CreateOrderRequestDto request) {
         return orderService.createOrder(request);
     }
 
@@ -32,6 +33,12 @@ public class OrderController {
     @GetMapping("/{id}")
     public OrderDto getOrderById(@PathVariable Long id) {
         return orderService.getOrderById(id);
+    }
+
+    @PutMapping("/{id}/complete")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void completeOrder(@PathVariable Long id) {
+        orderService.completeOrder(id);
     }
 
     @PutMapping("/{id}/cancel")

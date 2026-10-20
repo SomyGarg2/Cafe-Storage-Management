@@ -2,6 +2,7 @@ package com.cafestorage.InventoryManagementSystem.controller;
 
 import com.cafestorage.InventoryManagementSystem.dto.MenuItemRawMaterialDto;
 import com.cafestorage.InventoryManagementSystem.service.MenuItemRawMaterialService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class MenuItemRawMaterialController {
 
 
     @PostMapping
-    public MenuItemRawMaterialDto addRecipe(@RequestBody MenuItemRawMaterialDto dto) {
+    public MenuItemRawMaterialDto addRecipe(@Valid @RequestBody MenuItemRawMaterialDto dto) {
         return menuItemRawMaterialService.addRecipe(dto);
     }
 
